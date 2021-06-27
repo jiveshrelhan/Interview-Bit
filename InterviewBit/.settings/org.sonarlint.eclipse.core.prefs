@@ -1,0 +1,3 @@
+autoEnabled=false
+eclipse.preferences.version=1
+fileExclusions=FILE\:src/com/heaps/ProfitMax.java\r\nFILE\:src/com/trees/InvertTree.java\r\nFILE\:src/com/trees/CartesianTree.java\r\nFILE\:src/com/trees/PersonHeightsAuthor.java\r\nFILE\:src/com/graph/ConnectIsland.java
