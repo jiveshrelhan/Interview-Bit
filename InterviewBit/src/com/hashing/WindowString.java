@@ -6,13 +6,11 @@ public class WindowString {
 
 	public String minWindow(String A, String B) {
 		String res = "";
-		if (B.isEmpty()) {
+		if (B.isEmpty())
 			return res;
-		}
-		int currentScore = 0;
-		int targetScore = 0;
-		HashMap<Character, Integer> hashB = new HashMap<>();
-		HashMap<Character, Integer> hashA = new HashMap<>();
+		
+		int currentScore = 0,targetScore = 0,start = 0,end = 0;
+		HashMap<Character, Integer> hashB = new HashMap<>(),hashA = new HashMap<>();
 		int minWindowLengthSeenSoFar = Integer.MAX_VALUE;
 
 		currentScore = 0;
@@ -20,11 +18,15 @@ public class WindowString {
 			hashB.put(c, hashB.getOrDefault(c, 0) + 1);
 		}
 		targetScore = hashB.size();
-		int start = 0, end = 0;
 		while (end < A.length()) {
-
+			// If requirement is met then shrink (start++) else expand (end++)
 			char c = A.charAt(end);
 			hashA.put(c, hashA.getOrDefault(c, 0) + 1);
+			/*
+			 * Important Point: We will only update the currentScore when the character c
+			 * and its required frequencies completed met. If 2 x are required then don't
+			 * update current score twice.
+			 */
 			if (hashB.containsKey(c) && hashA.get(c).intValue() == hashB.get(c).intValue()) {
 				currentScore++;
 			}
@@ -39,7 +41,7 @@ public class WindowString {
 
 				c = A.charAt(start);
 				hashA.put(c, hashA.get(c) - 1);
-
+				// At any point the current captured frequency get reduced then required then currentScore --
 				if (hashB.containsKey(c) && hashA.get(c).intValue() < hashB.get(c).intValue()) {
 					currentScore--;
 				}

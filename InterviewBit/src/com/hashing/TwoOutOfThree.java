@@ -9,6 +9,10 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 public class TwoOutOfThree {
+	/*
+	 * I have indexed all inputs[] in the map. More of frequencies[] array
+	 * Use to tree set to give ans in sorted order was clever.
+	 */
 	public ArrayList<Integer> solve(ArrayList<Integer> A, ArrayList<Integer> B, ArrayList<Integer> C) {
 		ArrayList<Integer> ans = new ArrayList<Integer>();
 		Map<Integer, Set<Integer>> map = new TreeMap<>();

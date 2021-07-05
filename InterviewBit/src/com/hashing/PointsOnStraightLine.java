@@ -7,6 +7,15 @@ import java.util.Map;
 
 public class PointsOnStraightLine {
 
+	/*
+	 * Max points will be either at same slopes or all at X axis or All at Y Axis.
+	 * In this question inputs contains duplicates points too, we need to consider that as well.
+	 * Its better to handle duplicates, separately instead of merging them with same horizontal,vertical or slope.
+	 * Since it will satisfy all 3.
+	 */
+	/*
+	 * Choice is max points seen at any slope S vs max points seen at (x axis or y axis) + duplicates
+	 */
 	public int maxPoints(ArrayList<Integer> x, ArrayList<Integer> y) {
 		if (x.isEmpty())
 			return 0;
@@ -31,6 +40,7 @@ public class PointsOnStraightLine {
 				} else {
 					int yNet = y2 - y1;
 					int xNet = x2 - x1;
+					// Handle divide by 0 case.
 					double slope = xNet != 0 ? (yNet * 1.0) / xNet : 1e9;
 					int count = slopCount.getOrDefault(slope, 0) + 1;
 					sameSlope = Math.max(sameSlope, count);

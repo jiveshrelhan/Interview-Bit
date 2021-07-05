@@ -26,6 +26,7 @@ public class Anagrams {
 		}
 		return result;
 	}
+	
 	private Map<Character, Integer> generateWordMap(String str) {
 		Map<Character, Integer> map = new HashMap<Character, Integer>();
 		str.chars().forEach(k -> {
@@ -66,14 +67,19 @@ public class Anagrams {
 		map.values().forEach(k -> {
 			res.add(k);
 		});
+		/*
+		 * Author has asked to return the ans in lexo order and also by size.
+		 * For example "aa" ,"aaa" and "ab" should be return as "aa,ab,aaa";
+		 * Therefore tree set can't be used.
+		 */
 		res.sort(new Comparator<ArrayList<Integer>>() {
-
+			
 			@Override
 			public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
 
 				int size1 = 0;
 				int size2 = 0;
-
+				//Checks current character's both in A an B list. If both are same check next character
 				while (size1 < o1.size() && size2 < o2.size()) {
 					int a = o1.get(size1);
 					int b = o2.get(size2);
@@ -85,7 +91,7 @@ public class Anagrams {
 					size1++;
 					size2++;
 				}
-
+				//If till there we reached either A is substring B, or B is substring of A or A == B
 				if (size1 < o1.size()) {
 					return 1;
 				} else if (size2 < o2.size()) {

@@ -3,6 +3,9 @@ package com.hashing;
 import java.util.*;
 
 public class CheckPalindrome {
+	/*
+	 * Need to do this using map, otherwise could use 2 pointers approach.
+	 */
 	public int solve(String A) {
 		boolean isOdd = A.length() % 2 == 1 ? true : false;
 		int noOfOdds = 0;
@@ -14,10 +17,10 @@ public class CheckPalindrome {
 		}
 
 		for (Integer v : characterCount.values()) {
-			if (v % 2 == 1) 
+			if (v % 2 == 1)
 				noOfOdds++;
 		}
-		
+
 		if (isOdd && noOfOdds == 1) {
 			return 1;
 		} else if (!isOdd && noOfOdds == 0) {

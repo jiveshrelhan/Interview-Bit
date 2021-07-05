@@ -5,28 +5,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Fraction {
-	//Youtube
+	// You tube
 	// Integer corner case 2^32
 	public String fractionToDecimal(int A, int B) {
 		if (A == 0)
 			return "0";
-
+		
+		// If either of A and B is -ive then append "-"
 		StringBuilder str = new StringBuilder();
 		if (A < 0 && B > 0 || A > 0 && B < 0) {
 			str.append("-");
 		}
-		//inside long
-		long numo = Math.abs((long)A), deno = Math.abs((long)B);
+		// inside long
+		long numo = Math.abs((long) A), deno = Math.abs((long) B);
 		Map<Long, Integer> remainderMap = new HashMap<>();
 		long remainder = numo % deno;
+	
+		//If remainder is -ive then make it +ive. Since we are already added '-' in front of answer, we don't need this -ive sign.
 		if (remainder < 0)
 			remainder *= -1;
+		
 		str.append(numo / deno);
+		
+		// Termination condition. if number is completely divisible/ remainder == 0 then stop.
 		if (remainder == 0) {
 			return str.toString();
 		}
 
-		//map with index mechanism
+		/*
+		 * map with index mechanism new remainder = (old remainder *10 ) % deno
+		 * continue till new-remainder != 0
+		 */
 		str.append('.');
 		while (remainder != 0) {
 			remainder *= 10;
@@ -43,6 +52,9 @@ public class Fraction {
 		return str.toString();
 	}
 
+	/*
+	 * GFG Code not working
+	 */
 	public String fractionToDecimalNotWorking(int A, int B) {
 		BigDecimal result = new BigDecimal(A).divide(new BigDecimal(B));
 		if (result == BigDecimal.ZERO) {

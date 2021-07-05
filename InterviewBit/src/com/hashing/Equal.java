@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class Equal {
 		public ArrayList<Integer> twoSum(ArrayList<Integer> A, int start,int b, int x) {
 			ArrayList<Integer> ans = new ArrayList<>();
+			// Requirement of question, need to return the solution having smallest B1 OR D1 in [].
 			int minC = Integer.MAX_VALUE;
 			if (A.isEmpty()) {
 				return ans;
@@ -19,6 +20,10 @@ public class Equal {
 				int required = x - a;
 				if (map.containsKey(required)) {
 					int c = map.get(required);
+					/*
+					 *  Always replacing at array list. All the time we will have only one answer in the list.
+					 *	Since we are updating the list at index 0 and 1.
+					 */
 					if (c < minC) {
 						ans.add(0, c);
 						ans.add(1, i);
@@ -34,6 +39,9 @@ public class Equal {
 	
 		public ArrayList<Integer> fourSum(ArrayList<Integer> input) {
 			ArrayList<Integer> result = new ArrayList<>();
+			/*
+			 * Sorting not required, since index of original input matters to return the answer.
+			 */
 			// Collections.sort(input);
 			for (int i = 0; i < input.size() - 3; i++) {
 				for (int j = i + 1; j < input.size() - 2; j++) {
@@ -41,6 +49,7 @@ public class Equal {
 					int b = input.get(j);
 					int remaining = a + b;
 					ArrayList<Integer> ans = twoSum(input, i + 1,j, remaining);
+					// Return the first smallest answer we got.
 					if (!ans.isEmpty()) {
 						result.add(i);
 						result.add(j);

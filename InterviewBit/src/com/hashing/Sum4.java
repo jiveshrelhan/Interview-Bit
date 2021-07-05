@@ -10,37 +10,56 @@ import java.util.TreeSet;
 
 public class Sum4 {
 
+	/**
+	 * Important to know, how we are returning all indexes of C and D
+	 * 
+	 * @param A
+	 * @param startIndex
+	 * @param target
+	 * @return
+	 */
 	private ArrayList<ArrayList<Integer>> twoSum(ArrayList<Integer> A, int startIndex, int target) {
 		ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
 		if (A.isEmpty()) {
 			return ans;
 		}
+		/*
+		 * Since input can have duplicates too. We need to provide solution will all
+		 * indexes.
+		 */
 		HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
 		for (int i = startIndex; i < A.size(); i++) {
 			int a = A.get(i);
 			int required = target - a;
+			/*
+			 * If we get the required target (C) in hash map, then create all solutions
+			 * using all indexes of C present in map. here D is i.
+			 */
 			if (map.containsKey(required)) {
 				ArrayList<Integer> possibleStartingIndex = map.get(required);
+				// All C's and D
 				for (int x : possibleStartingIndex) {
 					ans.add(new ArrayList<>(Arrays.asList(x, i)));
 				}
 
-			} else if (!map.containsKey(a)) {
+			} // If seen first time, create empty list and add first index of C
+			else if (!map.containsKey(a)) {
 				map.put(a, new ArrayList<>(Arrays.asList(i)));
-			} else {
+			} // Else keep updating C's indexes.
+			else {
 				ArrayList<Integer> existing = map.get(a);
 				existing.add(i);
 				map.put(a, existing);
 			}
 
 		}
-
 		return ans;
 
 	}
 
 	public ArrayList<ArrayList<Integer>> fourSum(ArrayList<Integer> input, int x) {
 		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+		// Set is used to return the all the solution in sorted order.
 		Set<ArrayList<Integer>> set = new TreeSet<>(new Comparator<ArrayList<Integer>>() {
 
 			@Override
@@ -71,16 +90,23 @@ public class Sum4 {
 				}
 			}
 		});
-		 Collections.sort(input);
+
+		// Sort the input
+		Collections.sort(input);
+
 		for (int i = 0; i < input.size() - 3; i++) {
 			for (int j = i + 1; j < input.size() - 2; j++) {
 				int a = input.get(i);
 				int b = input.get(j);
 				int remaining = x - (a + b);
+				// Find C,D using 2 Sum. Remaining = Target - (A+B)
 				ArrayList<ArrayList<Integer>> ans = twoSum(input, j + 1, remaining);
 				if (!ans.isEmpty()) {
+					// Since there can be many indexes of C and D satisfies the condition, need to
+					// put all of them in result.
 					for (ArrayList<Integer> all : ans) {
 						ArrayList<Integer> temp = new ArrayList<Integer>(
+								// A,B,C,D
 								Arrays.asList(a, b, input.get(all.get(0)), input.get(all.get(1))));
 						set.add(temp);
 					}
@@ -88,6 +114,7 @@ public class Sum4 {
 				}
 			}
 		}
+		// Copy all the sorted solution to array list.
 		set.forEach(k -> {
 			result.add(k);
 		});
