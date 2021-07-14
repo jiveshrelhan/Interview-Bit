@@ -1,4 +1,4 @@
-package com.dp;
+package com.dp.strings;
 
 public class LPS {
 	class DP {
