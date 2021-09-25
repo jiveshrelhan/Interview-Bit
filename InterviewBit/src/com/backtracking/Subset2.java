@@ -8,6 +8,33 @@ import java.util.Set;
 
 public class Subset2 {
 
+	class Optimized {
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+
+		private void helper(ArrayList<Integer> input, int index, ArrayList<Integer> currentSet) {
+			if (index > input.size())
+				return;
+
+			res.add(new ArrayList<Integer>(currentSet));
+			Integer prev = null;
+			for (int i = index; i < input.size(); i++) {
+				if (prev != null && prev == input.get(i))
+					continue;
+				currentSet.add(input.get(i));
+				helper(input, i + 1, currentSet);
+				currentSet.remove(currentSet.size() - 1);
+				prev = input.get(i);
+			}
+		}
+
+		public ArrayList<ArrayList<Integer>> subsetsWithDup(ArrayList<Integer> input) {
+			Collections.sort(input);
+			helper(input, 0, new ArrayList<Integer>());
+			return res;
+		}
+
+	}
+
 	private void checkDuplicate(ArrayList<ArrayList<Integer>> res, String string, Set<String> set) {
 		if (!set.contains(string)) {
 			set.add(string);
@@ -43,6 +70,7 @@ public class Subset2 {
 	public static void main(String[] args) {
 		Subset2 obj = new Subset2();
 		System.out.println(obj.subsetsWithDup(new ArrayList<>(Arrays.asList(1, 2, 2, 3))));
+		System.out.println(obj.new Optimized().subsetsWithDup(new ArrayList<>(Arrays.asList(1, 2, 2, 3))));
 	}
 
 }

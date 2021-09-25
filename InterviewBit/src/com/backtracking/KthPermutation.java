@@ -29,35 +29,28 @@ public class KthPermutation {
 	public String getPermutation(int n, int k) {
 		StringBuilder ans = new StringBuilder();
 		ArrayList<Integer> queue = new ArrayList<>();
-		k--;
+		
 		for (int i = 1; i <= n; i++) {
 			queue.add(i);
 		}
-		Map<Integer, Long> facts = getFactorial(n);
-		int positionFiled = 0;
+        Map<Integer, Long> facts = getFactorial(n);
 
-		while (positionFiled < n) {
-			if (k == 0) {
-				break;
-			}
-			long factForSize = facts.get(queue.size() - 1);
-			int index = (int) (k / factForSize);
+		int positionFiled = 1;
+
+		while (positionFiled <= n) {
+			long factForSize = facts.get(n-positionFiled);
+			int index = (int) ((k-1) / factForSize);
 			int number = getAndUpdateQueue(queue, index);
-			k %= factForSize;
+			k = (int)(k-(index*factForSize));
 			ans.append(number);
 			positionFiled++;
 		}
-		queue.forEach(x -> ans.append(x));
-		/*
-		 * queue.stream().forEach(x -> { ans.append(x); });
-		 */
-
 		return ans.toString();
 	}
 
 	public static void main(String[] args) {
 		KthPermutation obj = new KthPermutation();
-		System.out.println(obj.getPermutation(4, 7));
+		System.out.println(obj.getPermutation(3, 3));
 	}
 
 }

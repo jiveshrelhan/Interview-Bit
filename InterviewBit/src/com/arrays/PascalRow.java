@@ -2,6 +2,12 @@ package com.arrays;
 
 import java.util.ArrayList;
 
+/*-
+ * 1
+ * 1 1
+ * 1 2 1
+ * 1 3 3 1
+ */
 public class PascalRow {
 	public ArrayList<Integer> getRow(int K) {
 
@@ -30,7 +36,7 @@ public class PascalRow {
 			for (int i = 1; i < prevRow.size(); i++) {
 				int index = i;
 				if (i >= prevRow.size()) {
-					index = i -  prevRow.size() + 1;
+					index = i - prevRow.size() + 1;
 				}
 				currentRow.add(prevRow.get(index) + prevRow.get(index - 1));
 			}
@@ -57,9 +63,28 @@ public class PascalRow {
 
 	}
 
+	public ArrayList<Integer> prevRow(int K) {
+		K += 1;
+		ArrayList<Integer> prevRow = new ArrayList<Integer>();
+		prevRow.add(1);
+
+		for (int i = 1; i <= K; i++) {
+			ArrayList<Integer> currentRow = new ArrayList<Integer>();
+
+			for (int j = 0; j < i; j++) {
+				int x = j >= 0 && j < prevRow.size() ? prevRow.get(j) : 0;
+				int y = j - 1 >= 0 && j-1 < prevRow.size() ? prevRow.get(j - 1) : 0;
+				currentRow.add(x + y);
+			}
+
+			prevRow = currentRow;
+		}
+		return prevRow;
+	}
+
 	public static void main(String[] args) {
 		PascalRow obj = new PascalRow();
-		ArrayList<Integer> ans = obj.getRow(3);
+		ArrayList<Integer> ans = obj.prevRow(4);
 		System.out.println(ans);
 	}
 

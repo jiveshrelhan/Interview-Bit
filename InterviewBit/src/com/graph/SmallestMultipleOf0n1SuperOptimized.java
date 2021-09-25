@@ -56,7 +56,7 @@ public class SmallestMultipleOf0n1SuperOptimized {
 
 	public static void main(String[] args) {
 		SmallestMultipleOf0n1SuperOptimized obj = new SmallestMultipleOf0n1SuperOptimized();
-		System.out.println(obj.multiple(2));
+		System.out.println(obj.multiple(55));
 		// System.out.println(obj.multiple(2));
 	}
 }

@@ -4,6 +4,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GrayCode {
+	class AnotherBasicApproach {
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+
+		private void helper(int n, String x) {
+			if (x.length() > n) {
+				return;
+			}
+			if (x.length() == n) {
+				ans.add(Integer.valueOf(x, 2));
+				return;
+			}
+
+			char lastChar = x.charAt(x.length() - 1);
+			if (lastChar == '0')
+				helper(n, x + "1");
+			else
+				helper(n, x + "0");
+		}
+
+		public ArrayList<Integer> grayCode(int a) {
+			helper(a, "0");
+			helper(a,"1");
+			return ans;
+		}
+	}
 
 	private ArrayList<String> generateAllCode(int n) {
 		if (n == 0) {
@@ -32,6 +57,7 @@ public class GrayCode {
 
 	public static void main(String[] args) {
 		GrayCode obj = new GrayCode();
-		System.out.println(obj.grayCode(10));
+		System.out.println(obj.grayCode(2));
+		System.out.println(obj.new AnotherBasicApproach().grayCode(2));
 	}
 }

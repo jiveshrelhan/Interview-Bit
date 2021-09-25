@@ -108,5 +108,7 @@ public class UsefulExtraEdges_Dijkstra {
 		ArrayList<ArrayList<Integer>> E = new ArrayList<ArrayList<Integer>>();
 		E.add(new ArrayList<>(Arrays.asList(6, 7, 4)));
 		System.out.println(obj.solve(6, B, 2, 4, E));
+		int[][] a = new int[3][];
+		System.out.println(a);
 	}
 }

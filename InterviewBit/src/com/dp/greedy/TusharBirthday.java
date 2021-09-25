@@ -134,7 +134,7 @@ public class TusharBirthday {
 	 * I attempted a DP version of it. 
 	 * Was sure it was a application of unbounded knapsack.
 	 */
-	
+
 	/*-
 	 * HIGHEST DIFFICULTY FACED IN HOW TO PRINT THE SELECTION
 	 * THERE IS ONE WAY USING 1D ARRAY BUT THIS ONE WAS LITTLE SIMPLE.
@@ -192,11 +192,46 @@ public class TusharBirthday {
 		}
 	}
 
+	class Greedy {
+		public int[] solve(int resistance, int[] strength) {
+			ArrayList<Integer> ans = new ArrayList<>();
+			if (resistance <= 0)
+				return new int[] {};
+
+			int minimumStrengthPlayer = strength[0];
+			
+			for (int s : strength) {
+				minimumStrengthPlayer = Math.min(minimumStrengthPlayer, s);
+			}
+
+			int maxNoOfKicksPossible = resistance / minimumStrengthPlayer;
+
+			int resistanceUtilized = maxNoOfKicksPossible * minimumStrengthPlayer;
+
+			int i = 0;
+
+			while (ans.size() < maxNoOfKicksPossible ) {
+				int possiblePlayer = strength[i];
+				int possibleSolution = resistanceUtilized - minimumStrengthPlayer + possiblePlayer;
+				if (possibleSolution <= resistance) {
+					resistanceUtilized = possibleSolution;
+					ans.add(i);
+				} else {
+					i++;
+				}
+			}
+			return ans.stream().mapToInt(Integer::intValue).toArray();
+		}
+	}
+
 	public static void main(String[] args) {
 		TusharBirthday obj = new TusharBirthday();
-		System.out.println(Arrays.toString(obj.new ActualRecursion().solve(14, new int[] { 8, 7, 6, 5, 4 })));
+		// System.out.println(Arrays.toString(obj.new ActualRecursion().solve(14, new
+		// int[] { 8, 7, 6, 5, 4 })));
 		// System.out.println(Arrays.toString(obj.new Memo().solve(14, new int[] { 8, 7,
 		// 6, 5, 4 })));
-		System.out.println(Arrays.toString(obj.new DP().solve(14, new int[] { 8, 7, 6, 5, 4 })));
+		// System.out.println(Arrays.toString(obj.new DP().solve(14, new int[] { 8, 7,
+		// 6, 5, 4 })));
+		System.out.println(Arrays.toString(obj.new Greedy().solve(11, new int[] { 6, 8, 5, 4, 7 })));
 	}
 }
